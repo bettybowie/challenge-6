@@ -10,42 +10,49 @@ var citySearchTerm = document.querySelector('#city-search-term');
 // result will display 5 day forecast on the bottom
 
 
+var formSubmitHandler = function (e) {
+  e.preventDefault();
+
+  var cityname = cityInputEl.value.trim();
+
+  if (cityname) {
+    getWeather(cityname);
+
+    resultsContainerEl.textContent = '';
+    cityInputEl.value = '';
+  } else {
+    alert('Please enter a city name');
+  }
+};
+
+cityFormEl.addEventListener('submit', formSubmitHandler);
+
+var getWeather = function (city) {
+  var coordinateUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=43e9f965132c49cafd2c625109b0f45f';
+
+  fetch(coordinateUrl)
+    .then(function(response) {
+      if (response.ok) {
+        console.log(response);
+      } else {
+        alert('Error:' + response.statusText);
+      }
+    })
+    .catch(function(error) {
+      alert('Unable to connect to OpenWeather');
+    })
+  
+  
+  
+  
+  var apiUrl = 'api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=43e9f965132c49cafd2c625109b0f45f';
+}
 
 
 
 
 
 
-
-
-
-
-
-
-// var formSubmitHandler = function (event) {
-//   event.preventDefault();
-
-//   var username = nameInputEl.value.trim();
-
-//   if (username) {
-//     getUserRepos(username);
-
-//     repoContainerEl.textContent = '';
-//     nameInputEl.value = '';
-//   } else {
-//     alert('Please enter a GitHub username');
-//   }
-// };
-
-// var buttonClickHandler = function (event) {
-//   var language = event.target.getAttribute('data-language');
-
-//   if (language) {
-//     getFeaturedRepos(language);
-
-//     repoContainerEl.textContent = '';
-//   }
-// };
 
 // var getUserRepos = function (user) {
 //   var apiUrl = 'https://api.github.com/users/' + user + '/repos';
