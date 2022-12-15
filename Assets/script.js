@@ -2,7 +2,11 @@ var cityFormEl = document.querySelector('#city-form');
 var searchHistoryEl = document.querySelector('#search-history');
 var cityInputEl = document.querySelector('#cityname');
 var resultsContainerEl = document.querySelector('#results-container');
+var currentConditionEl = document.querySelector('#current-condition');
+var forecastEl = document.querySelector('#forecast');
 var citySearchTerm = document.querySelector('#city-search-term');
+var lat ='';
+var lon ='';
 
 // when search button is clicked, results will display on the right
 // search term will be in search history
@@ -27,29 +31,48 @@ var formSubmitHandler = function (e) {
 
 cityFormEl.addEventListener('submit', formSubmitHandler);
 
-var getWeather = function (city) {
-  var coordinateUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + city + '&limit=1&appid=43e9f965132c49cafd2c625109b0f45f';
 
-  fetch(coordinateUrl)
+var getWeather = function (city) {
+  var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=43e9f965132c49cafd2c625109b0f45f';
+
+  fetch(apiUrl)
     .then(function(response) {
       if (response.ok) {
         console.log(response);
+        response.json().then(function(data) {
+          console.log(data);
+          lat = data.coord.lat;
+          lon = data.coord.lon;
+          showResults(lat, lon);
+        })
       } else {
         alert('Error:' + response.statusText);
       }
     })
     .catch(function(error) {
       alert('Unable to connect to OpenWeather');
-    })
-  
-  
-  
-  
-  var apiUrl = 'api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=43e9f965132c49cafd2c625109b0f45f';
+    });
 }
 
 
-
+// var getForecast = function(lat, lon) {
+//   var forecastUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=43e9f965132c49cafd2c625109b0f45f';
+  
+//   fetch(forecastUrl)
+//     .then(function(response) {
+//       if (response.ok) {
+//         console.log(response);
+//         response.json().then(function(data) {
+//           console.log(data);
+//         })
+//       } else {
+//         alert('Error' + response.statusText);
+//       }
+//     })
+//     .catch(function(error) {
+//       alert('Unable to connect to OpenWeather');
+//     });
+// }
 
 
 
