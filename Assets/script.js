@@ -4,7 +4,6 @@ var clearBtn = document.querySelector('#clear-search');
 var cityInputEl = document.querySelector('#cityname');
 var resultsContainerEl = document.querySelector('#results-container');
 var currentConditionEl = document.querySelector('#current-condition');
-var forecastEl = document.querySelector('#forecast');
 var lat ='';
 var lon ='';
 var historyList = '';
@@ -19,6 +18,7 @@ var fiveDays = document.querySelector('#five-day-container');
 var historyBtn = document.createElement("button");
 
 
+// function for clearing search history
 clearBtn.addEventListener('click', function(e) {
   e.preventDefault;
   localStorage.clear();
@@ -74,6 +74,7 @@ var getWeather = function (city) {
     });
 };
 
+// function to show results
 var showResults = function (lat, lon) {
   var forecastUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=43e9f965132c49cafd2c625109b0f45f&units=imperial';
 
@@ -118,7 +119,6 @@ var showResults = function (lat, lon) {
     });
 }
 
-
 // function to save to local storage
 var saveSearch = function(cityname) {
   if (localStorage.getItem('cities') === null) {
@@ -132,8 +132,7 @@ var saveSearch = function(cityname) {
   localStorage.setItem('cities', JSON.stringify(historyList));
 };
 
-// var historyList = JSON.parse(localStorage.getItem('cities'));
-
+// function to show search history
 var showSearch = function() {
   searchHistoryEl.innerHTML = '';
   if (localStorage.getItem('cities') !== null) {
@@ -148,12 +147,13 @@ var showSearch = function() {
   };
 } 
 
+// function to view searched cities
 searchHistoryEl.addEventListener('click', function(e) {
   e.preventDefault();
   var cityname = e.target;
   if (cityname) {
     console.log(cityname.textContent);
     getWeather(cityname.textContent);
-  }
+  } 
  })   
       
