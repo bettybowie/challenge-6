@@ -47,7 +47,7 @@ cityFormEl.addEventListener('submit', formSubmitHandler);
 
 // function for fetching data
 var getWeather = function (city) {
-  var apiUrl = 'http://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=43e9f965132c49cafd2c625109b0f45f&units=imperial';
+  var apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&APPID=43e9f965132c49cafd2c625109b0f45f&units=imperial';
 
   fetch(apiUrl)
     .then(function(response) {
@@ -76,7 +76,7 @@ var getWeather = function (city) {
 
 // function to show results
 var showResults = function (lat, lon) {
-  var forecastUrl = 'http://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=43e9f965132c49cafd2c625109b0f45f&units=imperial';
+  var forecastUrl = 'https://api.openweathermap.org/data/2.5/forecast?lat=' + lat + '&lon=' + lon + '&appid=43e9f965132c49cafd2c625109b0f45f&units=imperial';
 
   fetch(forecastUrl)
     .then(function(response) {
@@ -87,7 +87,7 @@ var showResults = function (lat, lon) {
           console.log(data);
           forecastHeader.textContent = '5-day forecast:';
           for (i = 1; i < data.list.length; i++) {
-            var icon = "http://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png";
+            var icon = "https://openweathermap.org/img/wn/" + data.list[i].weather[0].icon + "@2x.png";
             if (data.list[i].dt_txt.includes('15:00:00')){
               console.log(data.list[i]);
               var cardEl = document.createElement('div');
